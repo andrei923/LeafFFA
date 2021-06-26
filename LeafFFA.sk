@@ -11,7 +11,7 @@ import:
 options:
 
 	#do not touch this -_-
-	plugin-version: 2.2.0
+	plugin-version: 2.2.5
 
 function check_yaml(dir: text, value: text, set: text, type: text = "text"):
 	yaml value {_value} from "leaf.ffa.%{_dir}%" is not set:
@@ -49,7 +49,7 @@ command ffa [<text = help>] [<text>]:
 				send "&e/ffa createArena &8(&7arena_name&8)"												
 				send "&e/ffa setSpawn &8(&7arena_name&8)"			
 				send "&e/ffa setInventory &8(&7arena_name&8)"
-				send "&e/ffa setEnable &8(&7arena_name&8)"				
+				send "&e/ffa enableArena &8(&7arena_name&8)"				
 				send "&e/ffa setLeave"				
 				send centered "&7☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁☁" to player
 				stop
