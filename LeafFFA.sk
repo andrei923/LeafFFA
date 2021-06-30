@@ -11,9 +11,9 @@ import:
 options:
 
 	#do not touch this -_-
-	plugin-version: 2.2.5
+	plugin-version: 2.2.8
 
-function check_yaml(dir: text, value: text, set: text, type: text = "text"):
+function ffa_check_yaml(dir: text, value: text, set: text, type: text = "text"):
 	yaml value {_value} from "leaf.ffa.%{_dir}%" is not set:
 		if {_type} is "text":
 			set yaml value {_value} from "leaf.ffa.%{_dir}%" to {_set}
@@ -115,16 +115,16 @@ on load:
 		unload yaml loop-value-1
 	loop "config" and "data":
 		load yaml "plugins/LeafFFA/%loop-value-1%.yml" as "leaf.ffa.%loop-value-1%"	
-	check_yaml("config", "Settings.ChatFormat", "&a{kills} &8✦ &7{player} &8» &7{message}")		
-	check_yaml("config", "Settings.PointsPerKill", "5", "number")	
-	check_yaml("config", "Settings.LosePointsOnDeath", "3", "number")	
-	check_yaml("config", "Settings.RemoveBlockDelay", "3 seconds")								
-	check_yaml("config", "Scoreboard.Name", "&8︼︼ &eFFA &8︼︼") 	
-	check_yaml("config", "Scoreboard.Lines", "&7{now}||||&7➥ &fYour Status ⤵||||&8▪ &fKills: &a{Kills}||&8▪ &fPoints: &a{Points}||&8▪ &fDeaths: &a{Deaths}||||&7➥ &fServer Status ⤵||||&8╔ &e&nMode&r: {arena}||&8╚ &e&nOnline&r: {playerCount}||||&eplay.my-cool-server.net", "list")		
-	check_yaml("config", "Messages.Join", "&7{player} &ejoined.")	
-	check_yaml("config", "Messages.Leave", "&7{player} &eleft.")
-	check_yaml("config", "Messages.Death", "&c➜ {victim} &7died")	
-	check_yaml("config", "Messages.Killed", "&c➜ {victim} &7was killed by {killer}")				
+	ffa_check_yaml("config", "Settings.ChatFormat", "&a{kills} &8✦ &7{player} &8» &7{message}")		
+	ffa_check_yaml("config", "Settings.PointsPerKill", "5", "number")	
+	ffa_check_yaml("config", "Settings.LosePointsOnDeath", "3", "number")	
+	ffa_check_yaml("config", "Settings.RemoveBlockDelay", "3 seconds")								
+	ffa_check_yaml("config", "Scoreboard.Name", "&8︼︼ &eFFA &8︼︼") 	
+	ffa_check_yaml("config", "Scoreboard.Lines", "&7{now}||||&7➥ &fYour Status ⤵||||&8▪ &fKills: &a{Kills}||&8▪ &fPoints: &a{Points}||&8▪ &fDeaths: &a{Deaths}||||&7➥ &fServer Status ⤵||||&8╔ &e&nMode&r: {arena}||&8╚ &e&nOnline&r: {playerCount}||||&eplay.my-cool-server.net", "list")		
+	ffa_check_yaml("config", "Messages.Join", "&7{player} &ejoined.")	
+	ffa_check_yaml("config", "Messages.Leave", "&7{player} &eleft.")
+	ffa_check_yaml("config", "Messages.Death", "&c➜ {victim} &7died")	
+	ffa_check_yaml("config", "Messages.Killed", "&c➜ {victim} &7was killed by {killer}")				
 	loop "config" and "data":		
 		save yaml "leaf.ffa.%loop-value-1%"		
 	loop yaml nodes with keys "Arenas" from "leaf.ffa.data":
@@ -302,7 +302,7 @@ function ffa_createBoard(p: player):
 			loop "Points", "Kills" and "Deaths":
 				set {_int} to yaml value "Stats.%loop-value-2%" from "leaf.ffa.playerdata.%uuid of {_p}%"
 				replace all "{%loop-value-2%}" with "%{_int}%" in {_value}							
-			set scoreboard line {_slot} of {_p} to "%{-mb::cache::SB::%{_slot}%}%%{_value}%"
+			set scoreboard line {_slot} of {_p} to "%{-ffa::cache::SB::%{_slot}%}%%{_value}%"
 			add 1 to {_slot}						
 		wait a second
 
