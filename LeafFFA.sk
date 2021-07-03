@@ -11,7 +11,7 @@ import:
 options:
 
 	#do not touch this -_-
-	plugin-version: 2.2.8
+	plugin-version: 2.5.0
 
 function ffa_check_yaml(dir: text, value: text, set: text, type: text = "text"):
 	yaml value {_value} from "leaf.ffa.%{_dir}%" is not set:
@@ -289,7 +289,7 @@ function ffa_createBoard(p: player):
 	create scoreboard for {_p}	
 	set scoreboard title of {_p} to yaml value "Scoreboard.Name" from "leaf.ffa.config"
 	while {-ffa::cache::player::%{_p}%::state} is set:
-		set {_slot} to 0	
+		set {_slot} to 1
 		set {_playerCount} to 0
 		loop all players:
 			if {-ffa::cache::player::%loop-player%::state} is {-ffa::cache::player::%{_p}%::state}:
@@ -302,8 +302,8 @@ function ffa_createBoard(p: player):
 			loop "Points", "Kills" and "Deaths":
 				set {_int} to yaml value "Stats.%loop-value-2%" from "leaf.ffa.playerdata.%uuid of {_p}%"
 				replace all "{%loop-value-2%}" with "%{_int}%" in {_value}							
-			set scoreboard line {_slot} of {_p} to "%{-ffa::cache::SB::%{_slot}%}%%{_value}%"
-			add 1 to {_slot}						
+			set scoreboard line {_slot} of {_p} to colored "%{-ffa::cache::SB::%{_slot}%}%%{_value}%"
+			add 1 to {_slot}					
 		wait a second
 
 on BlockFromToEvent:
